@@ -1,0 +1,36 @@
+# ===================================================================
+# LIBRARY MANAGEMENT SYSTEM - APPLICATION CONFIGURATION
+# ===================================================================
+spring:
+  application:
+    name: library-management
+
+  # --- Database ---
+  datasource:
+    url: jdbc:mysql://localhost:3306/library_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # --- JPA / Hibernate ---
+  jpa:
+    hibernate:
+      ddl-auto: update          # Use 'validate' or 'none' in production
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+# --- Server ---
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# --- Library Business Rules ---
+library:
+  max-borrow-limit: 5           # Max books a member can borrow simultaneously
+  borrow-duration-days: 14      # Default loan period in days
+  fine-per-day: 0.50            # Fine amount in dollars per overdue day
